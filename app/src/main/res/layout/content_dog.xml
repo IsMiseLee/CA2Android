@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/dogURL"
-        android:layout_width="100dp"
-
-        android:layout_height="161dp" />
+        android:layout_width="235dp"
+        android:layout_height="161dp"
+        android:background="@drawable/ic_placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,8 +40,6 @@
             android:layout_marginTop="10dp"
             android:paddingRight="5dp"
             android:text="Dog Breed"
-            android:textColor="#fff"
-            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView

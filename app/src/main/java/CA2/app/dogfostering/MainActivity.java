@@ -19,30 +19,87 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private String SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/dogs";
     private String TAG = "helloworldvolleyclient";
+    private List<Dogs> dogsList;
+    ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Button but = findViewById(R.id.callServiceButton);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        //  Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+       // Button but = findViewById(R.id.callServiceButton);
+        //   FloatingActionButton fab = findViewById(R.id.fab);
 
 
-        but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callService(view);
-            }
-        });
+        dogsList = new ArrayList<>();
+        list = (ListView) findViewById(R.id.list_view);
+
+        //but.setOnClickListener(new View.OnClickListener() {
+        //  @Override
+        //   public void onClick(View view) {
+        //    callService(view);
+
+    // });
+        try
+
+    {
+        // make a string request (JSON request an alternative)
+        RequestQueue queue = Volley.newRequestQueue(this);
+        Log.d(TAG, "Making request");
+        try {
+            StringRequest strObjRequest = new StringRequest(Request.Method.GET, SERVICE_URI,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // parse resulting string containing JSON to Greeting object
+                            Dogs[] dogs = new Gson().fromJson(response, Dogs[].class);
+                            for (int i = 0; i < dogs.length; i++) {
+                                dogsList.add(dogs[i]);
+                                DogsAdapter adapt = new DogsAdapter(MainActivity.this, dogsList);
+                                list.setAdapter(adapt);
+                            }
+
+
+                            Log.d(TAG, "Displaying data" + dogs.toString());
+                        }
+
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                            Log.d(TAG, "Error" + error.toString());
+                        }
+                    });
+            queue.add(strObjRequest);           // can have multiple in a queue, and can cancel
+        } catch (Exception e1) {
+            Log.d(TAG, e1.toString());
+
+        }
     }
+        catch(
+    Exception e2)
+
+    {
+        Log.d(TAG, e2.toString());
+
+    }
+
+}
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     public void callService(View v)
     {
         // get TextView for displaying result
-        final TextView outputTextView = (TextView) findViewById(R.id.outputTextView);
+
 
         try
         {
@@ -87,18 +144,23 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 // parse resulting string containing JSON to Greeting object
                                 Dogs[] dogs = new Gson().fromJson(response, Dogs[].class);
+                                    for(int i=0;i<dogs.length;i++){
+                                        dogsList.add(dogs[i]);
+                                        DogsAdapter adapt = new DogsAdapter(MainActivity.this,dogsList);
+                                        list.setAdapter(adapt);
+                            }
 
 
-                                outputTextView.setText(dogs[0].toString());
                                 Log.d(TAG, "Displaying data" + dogs.toString());
                             }
+
                         },
                         new Response.ErrorListener()
                         {
                             @Override
                             public void onErrorResponse(VolleyError error)
                             {
-                                outputTextView.setText(error.toString());
+
                                 Log.d(TAG, "Error" + error.toString());
                             }
                         });
@@ -107,13 +169,13 @@ public class MainActivity extends AppCompatActivity {
             catch (Exception e1)
             {
                 Log.d(TAG, e1.toString());
-                outputTextView.setText(e1.toString());
+
             }
         }
         catch (Exception e2)
         {
             Log.d(TAG, e2.toString());
-            outputTextView.setText(e2.toString());
+
         }
     }
 
