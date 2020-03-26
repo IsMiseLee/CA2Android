@@ -1,5 +1,6 @@
 package CA2.app.dogfostering;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -14,11 +15,15 @@ import com.google.gson.Gson;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = "helloworldvolleyclient";
     private List<Dogs> dogsList;
     ListView list;
+    EditText text;
+    TextView title;
+    DogsAdapter adapt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         dogsList = new ArrayList<>();
         list = (ListView) findViewById(R.id.list_view);
-
+        title = (TextView) findViewById(R.id.title);
         //but.setOnClickListener(new View.OnClickListener() {
         //  @Override
         //   public void onClick(View view) {
@@ -52,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     // });
         try
-
-    {
+           {
         // make a string request (JSON request an alternative)
         RequestQueue queue = Volley.newRequestQueue(this);
         Log.d(TAG, "Making request");
@@ -66,11 +74,9 @@ public class MainActivity extends AppCompatActivity {
                             Dogs[] dogs = new Gson().fromJson(response, Dogs[].class);
                             for (int i = 0; i < dogs.length; i++) {
                                 dogsList.add(dogs[i]);
-                                DogsAdapter adapt = new DogsAdapter(MainActivity.this, dogsList);
+                                 adapt = new DogsAdapter(MainActivity.this, dogsList);
                                 list.setAdapter(adapt);
                             }
-
-
                             Log.d(TAG, "Displaying data" + dogs.toString());
                         }
 
@@ -78,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
                             Log.d(TAG, "Error" + error.toString());
                         }
                     });
@@ -87,14 +92,34 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, e1.toString());
 
         }
-    }
-        catch(
-    Exception e2)
+    } catch(Exception e2)
 
     {
         Log.d(TAG, e2.toString());
 
     }
+
+
+
+       list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+               final int selected_item = position;
+               final String index = dogsList.get(position).getId();
+               Intent i = new Intent(MainActivity.this, DogActivity.class);
+               i.putExtra("Dog ID",dogsList.get(position).getId());
+               i.putExtra("Dog Name",dogsList.get(position).getName());
+               i.putExtra("Dog breed",dogsList.get(position).getBreed());
+               i.putExtra("Dog age",dogsList.get(position).getAge());
+               i.putExtra("Dog information",dogsList.get(position).getInformation());
+               i.putExtra("Dog Url",dogsList.get(position).getImageURL());
+               i.putExtra("Dog isAdopted",dogsList.get(position).isAdopted());
+              startActivity(i);
+           }
+
+
+       });
 
 }
 

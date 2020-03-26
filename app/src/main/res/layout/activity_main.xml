@@ -8,17 +8,34 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+<TextView
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="5dp"
+    android:textAlignment="center"
+    android:text="Welcome to the fog fostering application"
+    />
+
+
     <ListView
         android:id="@+id/list_view"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="40dp" />
 
-
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/list_view"
+        android:text="Filter by not adopted"/>
 
 
 </RelativeLayout>

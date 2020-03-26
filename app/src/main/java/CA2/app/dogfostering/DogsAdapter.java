@@ -47,12 +47,12 @@ public class DogsAdapter  extends ArrayAdapter<Dogs> {
         Dogs dog = dogsList.get(position);
 
 
-        id.setText(dog.getId());
-        name.setText(dog.getName());
-        breed.setText(dog.getBreed());
+        id.setText("Dogs ID : "+dog.getId());
+        name.setText("Dogs Name : "+dog.getName());
+        breed.setText("Dogs Breed : "+dog.getBreed());
         String numberStr = Double.toString(dog.getAge());
-        age.setText(numberStr);
-        info.setText(dog.getInformation());
+        age.setText("Dogs Age : "+numberStr);
+        info.setText("Dogs Information : "+dog.getInformation());
 
 
         Glide.with(context).load(dog.getImageURL()).into(image);

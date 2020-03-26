@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-      <ImageView
-        android:id="@+id/dogURL"
+    <ImageView
+        android:id="@+id/adogURL"
         android:layout_width="235dp"
         android:layout_height="161dp"
         android:background="@drawable/ic_placeholder" />
@@ -18,7 +16,7 @@
 
 
         <TextView
-            android:id="@+id/id"
+            android:id="@+id/aId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dog id"
@@ -26,7 +24,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/aname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -34,7 +32,7 @@
 
 
         <TextView
-            android:id="@+id/breed"
+            android:id="@+id/abreed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -43,21 +41,21 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/age"
+            android:id="@+id/aage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="age" />
 
         <TextView
-            android:id="@+id/info"
+            android:id="@+id/ainfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="info" />
 
         <TextView
-            android:id="@+id/adoption"
+            android:id="@+id/aadoption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -65,5 +63,4 @@
 
 
     </LinearLayout>
-
 </LinearLayout>
