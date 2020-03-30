@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     EditText text;
     TextView title;
     DogsAdapter adapt;
-
+    Button filterButton, all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,83 +47,51 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //  Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-       // Button but = findViewById(R.id.callServiceButton);
+        // Button but = findViewById(R.id.callServiceButton);
         //   FloatingActionButton fab = findViewById(R.id.fab);
 
 
         dogsList = new ArrayList<>();
         list = (ListView) findViewById(R.id.list_view);
         title = (TextView) findViewById(R.id.title);
-        //but.setOnClickListener(new View.OnClickListener() {
-        //  @Override
-        //   public void onClick(View view) {
-        //    callService(view);
+        filterButton = (Button) findViewById(R.id.filterButton);
+        all = (Button) findViewById(R.id.filterallButton);
 
-    // });
-        try
-           {
-        // make a string request (JSON request an alternative)
-        RequestQueue queue = Volley.newRequestQueue(this);
-        Log.d(TAG, "Making request");
-        try {
-            StringRequest strObjRequest = new StringRequest(Request.Method.GET, SERVICE_URI,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // parse resulting string containing JSON to Greeting object
-                            Dogs[] dogs = new Gson().fromJson(response, Dogs[].class);
-                            for (int i = 0; i < dogs.length; i++) {
-                                dogsList.add(dogs[i]);
-                                 adapt = new DogsAdapter(MainActivity.this, dogsList);
-                                list.setAdapter(adapt);
-                            }
-                            Log.d(TAG, "Displaying data" + dogs.toString());
-                        }
 
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, "Error" + error.toString());
-                        }
-                    });
-            queue.add(strObjRequest);           // can have multiple in a queue, and can cancel
-        } catch (Exception e1) {
-            Log.d(TAG, e1.toString());
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        }
-    } catch(Exception e2)
+                final int selected_item = position;
+                final String index = dogsList.get(position).getId();
+                Intent i = new Intent(MainActivity.this, DogActivity.class);
+                i.putExtra("Dog ID", dogsList.get(position).getId());
+                i.putExtra("Dog Name", dogsList.get(position).getName());
+                i.putExtra("Dog breed", dogsList.get(position).getBreed());
+                i.putExtra("Dog age", dogsList.get(position).getAge());
+                i.putExtra("Dog information", dogsList.get(position).getInformation());
+                i.putExtra("Dog Url", dogsList.get(position).getImageURL());
+                i.putExtra("Dog isAdopted", dogsList.get(position).isAdopted());
+                startActivity(i);
+            }
 
-    {
-        Log.d(TAG, e2.toString());
+
+        });
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter();
+            }
+        });
+
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterAll();
+            }
+        });
 
     }
-
-
-
-       list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-               final int selected_item = position;
-               final String index = dogsList.get(position).getId();
-               Intent i = new Intent(MainActivity.this, DogActivity.class);
-               i.putExtra("Dog ID",dogsList.get(position).getId());
-               i.putExtra("Dog Name",dogsList.get(position).getName());
-               i.putExtra("Dog breed",dogsList.get(position).getBreed());
-               i.putExtra("Dog age",dogsList.get(position).getAge());
-               i.putExtra("Dog information",dogsList.get(position).getInformation());
-               i.putExtra("Dog Url",dogsList.get(position).getImageURL());
-               i.putExtra("Dog isAdopted",dogsList.get(position).isAdopted());
-              startActivity(i);
-           }
-
-
-       });
-
-}
-
-
 
 
     @Override
@@ -148,60 +116,91 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // call RESTful service using volley and display results
-    public void callService(View v)
-    {
+    public void filter() {
         // get TextView for displaying result
 
-
-        try
-        {
+        SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/status/false";
+        try {
             // make a string request (JSON request an alternative)
             RequestQueue queue = Volley.newRequestQueue(this);
             Log.d(TAG, "Making request");
-            try
-            {
+            try {
                 StringRequest strObjRequest = new StringRequest(Request.Method.GET, SERVICE_URI,
-                        new Response.Listener<String>()
-                        {
+                        new Response.Listener<String>() {
                             @Override
-                            public void onResponse(String response)
-                            {
+                            public void onResponse(String response) {
                                 // parse resulting string containing JSON to Greeting object
                                 Dogs[] dogs = new Gson().fromJson(response, Dogs[].class);
-                                    for(int i=0;i<dogs.length;i++){
-                                        dogsList.add(dogs[i]);
-                                        DogsAdapter adapt = new DogsAdapter(MainActivity.this,dogsList);
-                                        list.setAdapter(adapt);
-                            }
+                                for (int i = 0; i < dogs.length; i++) {
+                                    dogsList.add(dogs[i]);
+                                    DogsAdapter adapt = new DogsAdapter(MainActivity.this, dogsList);
+                                    list.setAdapter(adapt);
+                                }
 
 
                                 Log.d(TAG, "Displaying data" + dogs.toString());
                             }
 
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
-                            public void onErrorResponse(VolleyError error)
-                            {
+                            public void onErrorResponse(VolleyError error) {
 
                                 Log.d(TAG, "Error" + error.toString());
                             }
                         });
                 queue.add(strObjRequest);           // can have multiple in a queue, and can cancel
-            }
-            catch (Exception e1)
-            {
+            } catch (Exception e1) {
                 Log.d(TAG, e1.toString());
 
             }
-        }
-        catch (Exception e2)
-        {
+        } catch (Exception e2) {
             Log.d(TAG, e2.toString());
 
         }
     }
 
+
+    public void filterAll() {
+        SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/";
+        try {
+            // make a string request (JSON request an alternative)
+            RequestQueue queue = Volley.newRequestQueue(this);
+            Log.d(TAG, "Making request");
+            try {
+                StringRequest strObjRequest = new StringRequest(Request.Method.GET, SERVICE_URI,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // parse resulting string containing JSON to Greeting object
+                                Dogs[] dogs = new Gson().fromJson(response, Dogs[].class);
+                                for (int i = 0; i < dogs.length; i++) {
+                                    dogsList.add(dogs[i]);
+                                    adapt = new DogsAdapter(MainActivity.this, dogsList);
+                                    list.setAdapter(adapt);
+                                }
+                                Log.d(TAG, "Displaying data" + dogs.toString());
+                            }
+
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error" + error.toString());
+                            }
+                        });
+                queue.add(strObjRequest);           // can have multiple in a queue, and can cancel
+            } catch (Exception e1) {
+                Log.d(TAG, e1.toString());
+
+            }
+        } catch (Exception e2) {
+            Log.d(TAG, e2.toString());
+
+        }
+
+
+    }
 }

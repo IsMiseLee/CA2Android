@@ -18,24 +18,38 @@
     />
 
 
+    <Button
+        android:id="@+id/filterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="50dp"
+        android:text="Not adopted "
+        />
+
+    <Button
+        android:id="@+id/filterallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="50dp"
+        android:text="View all dogs"
+        />
+
+
     <ListView
         android:id="@+id/list_view"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="40dp" />
+        tools:layout_editor_absoluteY="40dp">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/filter"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/list_view"
-        android:text="Filter by not adopted"/>
+    </ListView>
 
 
 </RelativeLayout>

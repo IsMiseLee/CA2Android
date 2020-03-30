@@ -21,6 +21,10 @@ public class Dogs {
         this.isAdopted = isAdopted;
     }
 
+    public Dogs(boolean isAdopted) {
+        this.isAdopted = isAdopted;
+    }
+
     public String getId() {
         return id;
     }

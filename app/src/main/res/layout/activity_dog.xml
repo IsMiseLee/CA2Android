@@ -61,6 +61,13 @@
             android:layout_marginTop="5dp"
             android:text="adoption" />
 
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Adopt?"/>
 
     </LinearLayout>
+
+
 </LinearLayout>
