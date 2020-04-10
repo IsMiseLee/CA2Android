@@ -31,12 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DogActivity extends AppCompatActivity {
 
-    String id;
+    String id,name,breed,information,image_url;
+    double age;
     Button updateButton;
     private jsonPlaceHolderAPI jsonPlaceHolderApi;
     TextView tid, tname, tbreed, tage, tinfo, tadoption;
     ImageView timage;
 
+    boolean isAdopted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +47,12 @@ public class DogActivity extends AppCompatActivity {
 
 
         id = getIntent().getExtras().getString("Dog ID");
-        String name = getIntent().getExtras().getString("Dog Name");
-        String breed = getIntent().getExtras().getString("Dog breed");
-        double age = getIntent().getExtras().getDouble("Dog age");
-        String information = getIntent().getExtras().getString("Dog information");
-        String image_url = getIntent().getExtras().getString("Dog Url");
-        Boolean isAdopted = getIntent().getExtras().getBoolean("Dog isAdopted");
+         name = getIntent().getExtras().getString("Dog Name");
+         breed = getIntent().getExtras().getString("Dog breed");
+         age = getIntent().getExtras().getDouble("Dog age");
+         information = getIntent().getExtras().getString("Dog information");
+         image_url = getIntent().getExtras().getString("Dog Url");
+         isAdopted = getIntent().getExtras().getBoolean("Dog isAdopted");
 
 
         tid = (TextView) findViewById(R.id.aId);
@@ -80,7 +82,7 @@ public class DogActivity extends AppCompatActivity {
 
         Gson gson = new GsonBuilder().serializeNulls().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://fosterdogapi.azurewebsites.net")
+                .baseUrl("https://fosterdogapi.azurewebsites.net/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -91,7 +93,7 @@ public class DogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Toast.makeText(DogActivity.this, "Message not sent", Toast.LENGTH_SHORT).show();
-                v2();
+                adoptDog();
             }
         });
 
@@ -100,9 +102,9 @@ public class DogActivity extends AppCompatActivity {
 
     public void adoptDog() {
 
-        Dogs dog = new Dogs(true);
+        Dogs dog = new Dogs(id,name,breed,age,information,image_url,true);
 
-        retrofit2.Call<Dogs> call = jsonPlaceHolderApi.patchPost(id, dog);
+        retrofit2.Call<Dogs> call = jsonPlaceHolderApi.putPost(id, dog);
 
         call.enqueue(new Callback<Dogs>() {
 
@@ -143,45 +145,8 @@ public class DogActivity extends AppCompatActivity {
 
 
     }
-
-
-    public void v2() {
-        try {
-            String URL = "https://fosterdogapi.azurewebsites.net/api/Dogs/";
-            RequestQueue queue = Volley.newRequestQueue(this);
-
-            StringRequest postRequest = new StringRequest(Request.Method.POST, URL+id,
-                    new com.android.volley.Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("Response", response);
-                        }
-                    },
-                    new com.android.volley.Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // error
-
-                        }
-                    }
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("isAdopted", "true");
-                   ;
-
-                    return params;
-                }
-            };
-            queue.add(postRequest);
-
-
-        } catch (Exception e1) {
-        }
-    }
-
 }
+
 
 
 

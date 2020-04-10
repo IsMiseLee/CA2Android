@@ -32,7 +32,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/dogs";
+    private String SERVICE_URI ;
     private String TAG = "helloworldvolleyclient";
     private List<Dogs> dogsList;
     ListView list;
@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             // make a string request (JSON request an alternative)
             RequestQueue queue = Volley.newRequestQueue(this);
             Log.d(TAG, "Making request");
+            dogsList.clear();
             try {
                 StringRequest strObjRequest = new StringRequest(Request.Method.GET, SERVICE_URI,
                         new Response.Listener<String>() {
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void filterAll() {
         SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/";
+        dogsList.clear();
         try {
             // make a string request (JSON request an alternative)
             RequestQueue queue = Volley.newRequestQueue(this);
