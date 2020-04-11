@@ -1,49 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
-
-<TextView
-    android:id="@+id/title"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="5dp"
-    android:textAlignment="center"
-    android:text="Welcome to the fog fostering application"
-    />
+    android:orientation="vertical">
 
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_marginTop="8dp"
+        android:text="Welcome to the fog fostering application"
+        android:textAlignment="center" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/filterButton"
+            android:layout_width="150dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:text="Not adopted"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/filterallButton"
+            android:layout_width="150dp"
+            android:layout_marginLeft="100dp"
+            android:layout_height="wrap_content"
+            android:text="View all dogs"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/filterBreed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Please enter a breed dog : "
+        android:textColorHint="@color/cardview_dark_background"/>
     <Button
-        android:id="@+id/filterButton"
+        android:id="@+id/filterBreedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="50dp"
-        android:text="Not adopted "
-        />
+        android:text="Search"
+        android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/filterallButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="50dp"
-        android:text="View all dogs"
-        />
 
 
     <ListView
         android:id="@+id/list_view"
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="50dp"
+        android:layout_height="450dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,5 +67,12 @@
 
     </ListView>
 
+    <Button
+        android:id="@+id/AddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Want to add a Dog?"
+        android:layout_gravity="center"
+        />
 
-</RelativeLayout>
+</LinearLayout>

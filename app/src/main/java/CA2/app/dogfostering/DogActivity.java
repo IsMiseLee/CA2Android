@@ -65,7 +65,7 @@ public class DogActivity extends AppCompatActivity {
 
         // setting values to each view
 
-        tid.setText(id);
+        //tid.setText(id);
         tname.setText(name);
         tbreed.setText(breed);
         String numberStr = Double.toString(age);

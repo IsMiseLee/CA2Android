@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     EditText text;
     TextView title;
     DogsAdapter adapt;
-    Button filterButton, all;
+    EditText breedName;
+    Button filterButton, all,add,breed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         dogsList = new ArrayList<>();
-        list = (ListView) findViewById(R.id.list_view);
-        title = (TextView) findViewById(R.id.title);
-        filterButton = (Button) findViewById(R.id.filterButton);
-        all = (Button) findViewById(R.id.filterallButton);
+        list = findViewById(R.id.list_view);
+        title =findViewById(R.id.title);
+        filterButton =findViewById(R.id.filterButton);
+        all = findViewById(R.id.filterallButton);
+        add=findViewById(R.id.AddButton);
+        breed=findViewById(R.id.filterBreedButton);
+        breedName=findViewById(R.id.filterBreed);
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,6 +95,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addActivity();
+            }
+        });
+
+        breed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterBreed();
+            }
+        });
     }
 
 
@@ -204,5 +222,54 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void filterBreed() {
+        String name = breedName.getText().toString();
+        SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/"+name;
+
+        dogsList.clear();
+        try {
+            // make a string request (JSON request an alternative)
+            RequestQueue queue = Volley.newRequestQueue(this);
+            Log.d(TAG, "Making request");
+            try {
+                StringRequest strObjRequest = new StringRequest(Request.Method.GET, SERVICE_URI,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // parse resulting string containing JSON to Greeting object
+                                Dogs dogs = new Gson().fromJson(response, Dogs.class);
+
+                                    dogsList.add(dogs);
+                                    adapt = new DogsAdapter(MainActivity.this, dogsList);
+                                    list.setAdapter(adapt);
+
+                                Log.d(TAG, "Displaying data" + dogs.toString());
+                            }
+
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error" + error.toString());
+                            }
+                        });
+                queue.add(strObjRequest);           // can have multiple in a queue, and can cancel
+            } catch (Exception e1) {
+                Log.d(TAG, e1.toString());
+
+            }
+        } catch (Exception e2) {
+            Log.d(TAG, e2.toString());
+
+        }
+
+
+    }
+
+    private void addActivity(){
+        Intent intent = new Intent(this, DogsAddActivity.class);
+        startActivity(intent);
     }
 }
