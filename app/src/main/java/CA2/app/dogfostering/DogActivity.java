@@ -47,12 +47,12 @@ public class DogActivity extends AppCompatActivity {
 
 
         id = getIntent().getExtras().getString("Dog ID");
-         name = getIntent().getExtras().getString("Dog Name");
-         breed = getIntent().getExtras().getString("Dog breed");
-         age = getIntent().getExtras().getDouble("Dog age");
-         information = getIntent().getExtras().getString("Dog information");
-         image_url = getIntent().getExtras().getString("Dog Url");
-         isAdopted = getIntent().getExtras().getBoolean("Dog isAdopted");
+        name = getIntent().getExtras().getString("Dog Name");
+        breed = getIntent().getExtras().getString("Dog breed");
+        age = getIntent().getExtras().getDouble("Dog age");
+        information = getIntent().getExtras().getString("Dog information");
+        image_url = getIntent().getExtras().getString("Dog Url");
+        isAdopted = getIntent().getExtras().getBoolean("Dog isAdopted");
 
 
         tid = (TextView) findViewById(R.id.aId);
@@ -120,7 +120,7 @@ public class DogActivity extends AppCompatActivity {
 
                 // setting values to each view
 
-                tid.setText(postResponse.getId());
+               /* tid.setText(postResponse.getId());
                 tname.setText(postResponse.getName());
                 tbreed.setText(postResponse.getBreed());
                 String numberStr = Double.toString(postResponse.getAge());
@@ -130,9 +130,9 @@ public class DogActivity extends AppCompatActivity {
                     tadoption.setText("Dog Adopted");
                 } else {
                     tadoption.setText("Not Adopted");
-                }
+                }*/
 
-                Glide.with(DogActivity.this).load(postResponse.getImageURL()).into(timage);
+                //Glide.with(DogActivity.this).load(postResponse.getImageURL()).into(timage);
 
 
             }

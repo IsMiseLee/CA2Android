@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         breedName=findViewById(R.id.filterBreed);
 
 
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -241,9 +242,9 @@ public class MainActivity extends AppCompatActivity {
                                 // parse resulting string containing JSON to Greeting object
                                 Dogs dogs = new Gson().fromJson(response, Dogs.class);
 
-                                    dogsList.add(dogs);
-                                    adapt = new DogsAdapter(MainActivity.this, dogsList);
-                                    list.setAdapter(adapt);
+                                dogsList.add(dogs);
+                                adapt = new DogsAdapter(MainActivity.this, dogsList);
+                                list.setAdapter(adapt);
 
                                 Log.d(TAG, "Displaying data" + dogs.toString());
                             }
@@ -267,9 +268,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
     private void addActivity(){
+
         Intent intent = new Intent(this, DogsAddActivity.class);
         startActivity(intent);
     }
+
+
 }

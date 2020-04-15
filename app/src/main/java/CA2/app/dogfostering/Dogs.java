@@ -11,6 +11,7 @@ public class Dogs {
     private String imageURL;
     private boolean isAdopted;
 
+
     public Dogs(String id, String name, String breed, double age, String information, String imageURL, boolean isAdopted) {
         this.id = id;
         this.name = name;
@@ -19,6 +20,16 @@ public class Dogs {
         this.information = information;
         this.imageURL = imageURL;
         this.isAdopted = isAdopted;
+    }
+
+    public Dogs(String id, String name, String breed, double age, String information, String imageURL) {
+        this.id = id;
+        this.name = name;
+        this.breed = breed;
+        this.age = age;
+        this.information = information;
+        this.imageURL = imageURL;
+
     }
 
     public Dogs(boolean isAdopted) {
@@ -85,12 +96,12 @@ public class Dogs {
     public String toString() {
         return
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", breed='" + breed + '\'' +
-                ", age=" + age +
-                ", information='" + information + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", isAdopted=" + isAdopted +
-                '}';
+                        ", name='" + name + '\'' +
+                        ", breed='" + breed + '\'' +
+                        ", age=" + age +
+                        ", information='" + information + '\'' +
+                        ", imageURL='" + imageURL + '\'' +
+                        ", isAdopted=" + isAdopted +
+                        '}';
     }
 }
