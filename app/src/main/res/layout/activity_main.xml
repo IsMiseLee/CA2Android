@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="15dp"
         android:layout_marginTop="8dp"
-        android:text="Welcome to the fog fostering application"
+        android:text="@string/title"
         android:textAlignment="center" />
 
 
@@ -27,7 +27,7 @@
             android:layout_width="150dp"
             android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
-            android:text="Not adopted"
+            android:text="@string/notAdoptedButton"
             android:layout_gravity="center"/>
 
         <Button
@@ -35,7 +35,7 @@
             android:layout_width="150dp"
             android:layout_marginLeft="100dp"
             android:layout_height="wrap_content"
-            android:text="View all dogs"
+            android:text="@string/allDogsButton"
             android:layout_gravity="center"/>
     </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:id="@+id/filterBreed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Please enter a breed dog : "
+        android:hint="@string/breedFilter"
         android:textColorHint="@color/cardview_dark_background"/>
     <Button
         android:id="@+id/filterBreedButton"
@@ -71,7 +71,7 @@
         android:id="@+id/AddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Want to add a Dog?"
+        android:text="@string/addDog"
         android:layout_gravity="center"
         />
 

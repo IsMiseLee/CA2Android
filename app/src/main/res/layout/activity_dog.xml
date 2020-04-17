@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="Dog Name" />
+            android:text="@string/dogName" />
 
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="Dog Breed"
+            android:text="@string/dogBreed"
             />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="age" />
+            android:text="@string/dogAge" />
 
         <TextView
             android:id="@+id/ainfo"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="info" />
+            android:text="@string/dogInfo" />
 
         <TextView
             android:id="@+id/aadoption"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="adoption" />
+            android:text="@string/dogAdoption" />
 
 
 
@@ -74,5 +74,5 @@
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:text="Adopt?"/>
+        android:text="@string/adoptButton"/>
 </LinearLayout>
