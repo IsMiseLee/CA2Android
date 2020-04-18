@@ -1,5 +1,6 @@
 package CA2.app.dogfostering;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,9 +10,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -30,6 +34,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     private String SERVICE_URI ;
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     DogsAdapter adapt;
     EditText breedName;
     Button filterButton, all,add,breed;
+    private jsonPlaceHolderAPI jsonPlaceHolderApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +70,13 @@ public class MainActivity extends AppCompatActivity {
         add=findViewById(R.id.AddButton);
         breed=findViewById(R.id.filterBreedButton);
         breedName=findViewById(R.id.filterBreed);
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://fosterdogapi.azurewebsites.net/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
 
+        jsonPlaceHolderApi = retrofit.create(jsonPlaceHolderAPI.class);
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -110,6 +126,36 @@ public class MainActivity extends AppCompatActivity {
                 filterBreed();
             }
         });
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int
+                    position, long id) {
+
+                // it will get the position of selected item from the ListView
+
+                final int selected_item = position;
+                final String index = dogsList.get(position).getId();
+
+                new AlertDialog.Builder(MainActivity.this).
+                        setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Are you sure...")
+                        .setMessage("Do you want to delete this contact..?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dogsList.remove(selected_item);
+                                dogsList.clear();
+                                delete(selected_item);
+
+                            }
+                        })
+                        .setNegativeButton("No", null).show();
+
+                return true;
+            }
+        });
+
     }
 
 
@@ -275,4 +321,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void delete(int id){
+        String stringId=String.valueOf(id);
+        retrofit2.Call<Void> call = jsonPlaceHolderApi.delete(stringId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+
+
+
+    });
+
 }
+}
+
