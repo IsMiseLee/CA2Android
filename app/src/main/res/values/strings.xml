@@ -16,4 +16,6 @@
 
 
     <string name="adoptButton">Adopt </string>
+    <string name="searchButton">Search </string>
+
 </resources>

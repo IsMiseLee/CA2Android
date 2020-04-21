@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         breedName=findViewById(R.id.filterBreed);
         Gson gson = new GsonBuilder().serializeNulls().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://fosterdogapi.azurewebsites.net/")
+                .baseUrl("https://ca2api20200421041940.azurewebsites.net/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -140,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(MainActivity.this).
                         setIcon(android.R.drawable.ic_delete)
                         .setTitle("Are you sure...")
-                        .setMessage("Do you want to delete this contact..?")
+                        .setMessage("Do you want to delete this dog..?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dogsList.remove(selected_item);
+                                dogsList.remove(index);
                                 dogsList.clear();
-                                delete(selected_item);
+                                delete(index);
 
                             }
                         })
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     public void filter() {
         // get TextView for displaying result
 
-        SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/status/false";
+        SERVICE_URI = "https://ca2api20200421041940.azurewebsites.net/api/Dogs/status/false";
         try {
             // make a string request (JSON request an alternative)
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void filterAll() {
-        SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/";
+        SERVICE_URI = "https://ca2api20200421041940.azurewebsites.net/api/Dogs/";
         dogsList.clear();
         try {
             // make a string request (JSON request an alternative)
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void filterBreed() {
         String name = breedName.getText().toString();
-        SERVICE_URI = "https://fosterdogapi.azurewebsites.net/api/Dogs/"+name;
+        SERVICE_URI = "https://ca2api20200421041940.azurewebsites.net/api/Dogs/"+name;
 
         dogsList.clear();
         try {
@@ -321,9 +321,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void delete(int id){
-        String stringId=String.valueOf(id);
-        retrofit2.Call<Void> call = jsonPlaceHolderApi.delete(stringId);
+    public void delete(String id){
+
+        retrofit2.Call<Void> call = jsonPlaceHolderApi.delete(id);
 
         call.enqueue(new Callback<Void>() {
             @Override

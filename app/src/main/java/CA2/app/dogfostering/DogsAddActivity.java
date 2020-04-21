@@ -63,7 +63,7 @@ public class DogsAddActivity  extends AppCompatActivity {
         // textViewResult = findViewById(R.id.name);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://fosterdogapi.azurewebsites.net/api/Dogs/")
+                .baseUrl("https://ca2api20200421041940.azurewebsites.net/api/Dogs/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

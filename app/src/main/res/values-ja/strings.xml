@@ -16,4 +16,5 @@
     <string name="dogAdoption"> 犬の養子縁組 : </string>
 
     <string name="adoptButton">採用？ </string>
+    <string name="searchButton">探す? </string>
 </resources>

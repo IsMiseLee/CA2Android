@@ -16,4 +16,6 @@
     <string name="dogAdoption"> Uchtáil madraí : </string>
 
     <string name="adoptButton">Glacadh?</string>
+    <string name="searchButton">Cuardaigh </string>
+
 </resources>

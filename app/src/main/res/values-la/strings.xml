@@ -16,5 +16,5 @@
     <string name="dogAdoption"> canem adoption : </string>
 
     <string name="adoptButton">Capere?</string>
-
+    <string name="searchButton">Quaerere </string>
 </resources>

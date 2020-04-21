@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -82,7 +83,7 @@ public class DogActivity extends AppCompatActivity {
 
         Gson gson = new GsonBuilder().serializeNulls().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://fosterdogapi.azurewebsites.net/")
+                .baseUrl("https://ca2api20200421041940.azurewebsites.net/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -117,7 +118,7 @@ public class DogActivity extends AppCompatActivity {
                 }
 
                 Dogs postResponse = response.body();
-
+                Toast.makeText(DogActivity.this, "Dog Adopted !", Toast.LENGTH_SHORT).show();
                 // setting values to each view
 
                /* tid.setText(postResponse.getId());
